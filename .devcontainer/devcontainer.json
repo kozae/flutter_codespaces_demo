@@ -4,7 +4,6 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "dart.flutterSdkPath": "/home/cirrus/sdks/flutter",
         "dart.flutterHotReloadOnSave": "all",
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
@@ -33,7 +32,7 @@
   },
   "onCreateCommand": "flutter doctor",
   "postCreateCommand": "flutter pub get",
-  "remoteUser": "cirrus",
+  "remoteUser": "root",
   "runArgs": ["--init"],
   "workspaceFolder": "/workspace",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated"
