@@ -1,38 +1,23 @@
 {
-  "name": "Flutter Development Environment",
-  "image": "cirrusci/flutter:stable",
+  "name": "Flutter Development",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "developer",
   "customizations": {
     "vscode": {
-      "settings": {
-        "dart.flutterHotReloadOnSave": "all",
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-          "source.fixAll": "explicit"
-        },
-        "files.autoSave": "afterDelay",
-        "terminal.integrated.shell.linux": "/bin/bash"
-      },
       "extensions": [
-        "Dart-Code.flutter",
         "Dart-Code.dart-code",
-        "ms-vscode.vscode-json"
-      ]
+        "Dart-Code.flutter"
+      ],
+      "settings": {
+        "[dart]": {
+          "editor.formatOnSave": true
+        },
+        "files.autoSave": "onFocusChange"
+      }
     }
   },
   "forwardPorts": [3000],
-  "portsAttributes": {
-    "3000": {
-      "label": "Flutter Web App",
-      "onAutoForward": "notify"
-    }
-  },
-  "containerEnv": {
-    "FLUTTER_WEB_PORT": "3000",
-    "FLUTTER_WEB_HOSTNAME": "0.0.0.0"
-  },
-  "onCreateCommand": "flutter doctor",
-  "postCreateCommand": "flutter pub get",
-  "remoteUser": "root",
-  "workspaceFolder": "/workspace",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated"
+  "postCreateCommand": "flutter doctor && flutter pub get"
 }

@@ -1,29 +1,40 @@
-# Use Ubuntu as base image
-FROM ubuntu:22.04
+# Flutter Development Container
+FROM ubuntu:24.04
 
-# Install dependencies
+# Avoid warnings by switching to noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     git \
-    wget \
     unzip \
-    lib32stdc++6 \
+    xz-utils \
+    zip \
     libglu1-mesa \
-    default-jdk \
+    openjdk-17-jdk \
+    wget \
+    chromium-browser \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Flutter
-ENV FLUTTER_HOME="/opt/flutter" \
-    PATH="/opt/flutter/bin:${PATH}"
+# Create a non-root user
+RUN useradd -ms /bin/bash developer
+USER developer
+WORKDIR /home/developer
 
-# Install Flutter 3.24 (which includes Dart 3.5+)
-RUN git clone https://github.com/flutter/flutter.git -b stable ${FLUTTER_HOME} && \
-    flutter config --no-analytics && \
-    flutter precache && \
-    flutter doctor
+# Clone Flutter from GitHub (always gets the latest stable)
+RUN git clone https://github.com/flutter/flutter.git -b stable
+
+# Set environment variables
+ENV PATH="$PATH:/home/developer/flutter/bin:/home/developer/flutter/bin/cache/dart-sdk/bin"
+
+# Configure Flutter
+RUN flutter config --no-analytics
+RUN flutter config --enable-web
+RUN flutter precache --web
+
+# Set Chrome executable for Flutter web
+ENV CHROME_EXECUTABLE=/usr/bin/chromium-browser
 
 # Set working directory
 WORKDIR /workspace
-
-# Expose port for Flutter web
-EXPOSE 3000
