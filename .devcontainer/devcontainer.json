@@ -1,0 +1,40 @@
+{
+  "name": "Flutter Development Environment",
+  "image": "cirrusci/flutter:stable",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "dart.flutterSdkPath": "/home/cirrus/sdks/flutter",
+        "dart.flutterHotReloadOnSave": "all",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll": "explicit"
+        },
+        "files.autoSave": "afterDelay",
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "Dart-Code.flutter",
+        "Dart-Code.dart-code",
+        "ms-vscode.vscode-json"
+      ]
+    }
+  },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Flutter Web App",
+      "onAutoForward": "notify"
+    }
+  },
+  "containerEnv": {
+    "FLUTTER_WEB_PORT": "3000",
+    "FLUTTER_WEB_HOSTNAME": "0.0.0.0"
+  },
+  "onCreateCommand": "flutter doctor",
+  "postCreateCommand": "flutter pub get",
+  "remoteUser": "cirrus",
+  "runArgs": ["--init"],
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated"
+}
