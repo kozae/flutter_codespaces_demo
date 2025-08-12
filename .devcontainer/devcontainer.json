@@ -1,8 +1,6 @@
 {
   "name": "Flutter Development Environment",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "image": "cirrusci/flutter:stable",
   "customizations": {
     "vscode": {
       "settings": {
@@ -34,7 +32,7 @@
   },
   "onCreateCommand": "flutter doctor",
   "postCreateCommand": "flutter pub get",
-  "remoteUser": "root",
+  "remoteUser": "vscode",
   "workspaceFolder": "/workspace",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated"
 }
