@@ -32,7 +32,7 @@
   },
   "onCreateCommand": "flutter doctor",
   "postCreateCommand": "flutter pub get",
-  "remoteUser": "vscode",
+  "remoteUser": "root",
   "workspaceFolder": "/workspace",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated"
 }
